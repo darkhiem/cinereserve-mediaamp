@@ -1,3 +1,11 @@
+/**
+ * File: client/src/components/ConfirmationTicket.jsx
+ * Description:
+ *   Digital Boarding Pass & Confirmation Modal.
+ *   - Triggers celebratory confetti burst (canvas-confetti) on confirmed booking.
+ *   - Renders movie details, seat pills, total paid, scannable Code-128 vector barcode, and QR pass.
+ */
+
 import React, { useEffect } from 'react';
 import confetti from 'canvas-confetti';
 import { CheckCircle, Film, Calendar, MapPin, Ticket, Sparkles, Download, X } from 'lucide-react';

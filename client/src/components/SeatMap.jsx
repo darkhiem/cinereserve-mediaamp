@@ -1,3 +1,12 @@
+/**
+ * File: client/src/components/SeatMap.jsx
+ * Description:
+ *   Interactive Theater Hall & Seat Grid Component.
+ *   - Renders curved illuminated cinema screen and 6-row seating layout (Rows A-F).
+ *   - Displays dynamic visual states: Available, VIP Gold, Selected, Held by Others, and Booked.
+ *   - Handles interactive user click toggles.
+ */
+
 import React from 'react';
 import { Crown, Lock, Check, User } from 'lucide-react';
 

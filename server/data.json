@@ -131,6 +131,12 @@
       "name": "Bob Smith",
       "email": "bob@example.com",
       "password": "$2b$12$a0lvFNTk0NtHFoexRPyqn.l5O.i2t6nEEsCf3nj1qCMsQ5zcqBeRG"
+    },
+    {
+      "id": "u_d0da0186",
+      "name": "Daksh",
+      "email": "daksh@email.com",
+      "password": "$2b$12$GWkpAvwFqrfMcQQBYPxCKekq/cH0AmxvWN5BPMpnWGy24TUu0GilC"
     }
   ],
   "seats": [
@@ -420,13 +426,13 @@
       "number": 5,
       "tier": "Standard",
       "price": 15.0,
-      "status": "BOOKED",
+      "status": "AVAILABLE",
       "heldBy": null,
       "heldByName": null,
       "holdExpiresAt": null,
-      "bookedBy": "u_801b4af1",
-      "bookedByName": "Alice Parker",
-      "bookingRef": "BK-A6695B"
+      "bookedBy": null,
+      "bookedByName": null,
+      "bookingRef": null
     },
     {
       "id": "C6",
@@ -919,28 +925,5 @@
       "bookingRef": null
     }
   ],
-  "bookings": [
-    {
-      "id": "b_1790067770659",
-      "bookingRef": "BK-A6695B",
-      "userId": "u_801b4af1",
-      "userName": "Alice Parker",
-      "seatIds": [
-        "C5"
-      ],
-      "seats": [
-        {
-          "id": "C5",
-          "row": "C",
-          "number": 5,
-          "tier": "Standard",
-          "price": 15.0
-        }
-      ],
-      "totalPrice": 15.0,
-      "paymentMethod": "Visa \u2022\u2022\u2022\u2022 4242",
-      "status": "CONFIRMED",
-      "createdAt": "2026-09-22T09:02:50Z"
-    }
-  ]
+  "bookings": []
 }

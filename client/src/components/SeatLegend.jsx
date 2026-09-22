@@ -1,3 +1,10 @@
+/**
+ * File: client/src/components/SeatLegend.jsx
+ * Description:
+ *   Visual Legend Guide Component.
+ *   - Displays visual keys for Available ($15), VIP ($25), Selected, Held by Others, and Sold Out states.
+ */
+
 import React from 'react';
 import { Crown, Sparkles, UserCheck, Lock, CheckCircle2 } from 'lucide-react';
 

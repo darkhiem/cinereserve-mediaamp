@@ -1,3 +1,12 @@
+/**
+ * File: client/src/App.jsx
+ * Description:
+ *   Root Component & Application State Coordinator.
+ *   - Establishes persistent, auto-reconnecting WebSocket connection to /ws for live seat updates.
+ *   - Coordinates multi-seat selection, hold requests, cancellations, and booking confirmations.
+ *   - Manages responsive floating checkout trigger bar, toast alerts, and modal dialogs.
+ */
+
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { AuthProvider, useAuth } from './context/AuthContext';
 import { Navbar } from './components/Navbar';

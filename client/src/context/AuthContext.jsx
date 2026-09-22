@@ -1,3 +1,11 @@
+/**
+ * File: client/src/context/AuthContext.jsx
+ * Description:
+ *   React Authentication Context & Session Provider.
+ *   - Manages JWT tokens, user profile state, and localStorage session persistence.
+ *   - Exposes login, signup, logout functions, and authenticated HTTP header helper.
+ */
+
 import React, { createContext, useContext, useState, useEffect } from 'react';
 
 const AuthContext = createContext(null);

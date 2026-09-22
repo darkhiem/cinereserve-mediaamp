@@ -1,3 +1,12 @@
+"""
+File: server/test_race_condition.py
+Description:
+    Automated Concurrency & Race Condition Validation Test Script.
+    - Creates 10 distinct authenticated user sessions via API.
+    - Uses ThreadPoolExecutor to fire 10 concurrent requests to lock the exact same seat (A1) at the same millisecond.
+    - Asserts that exactly 1 request receives HTTP 200 (Success) and the remaining 9 receive HTTP 409 (Conflict).
+"""
+
 import requests
 import concurrent.futures
 import time

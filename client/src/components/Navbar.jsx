@@ -1,3 +1,11 @@
+/**
+ * File: client/src/components/Navbar.jsx
+ * Description:
+ *   Top Application Navigation Header.
+ *   - Displays brand logo, live WebSocket connection status pulse (🟢 Live / 🔴 Offline).
+ *   - Provides action buttons for Resetting Map, Viewing Tickets, and User Auth/Profile menu.
+ */
+
 import React from 'react';
 import { useAuth } from '../context/AuthContext';
 import { Film, User, LogOut, RotateCcw, Ticket, Wifi, WifiOff } from 'lucide-react';

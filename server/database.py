@@ -1,3 +1,13 @@
+"""
+File: server/database.py
+Description:
+    Thread-Safe In-Memory / File-Backed Persistent Database Layer.
+    - Uses asyncio.Lock() to guarantee atomic seat holds and prevent race conditions / double bookings.
+    - Generates and manages the 6-row theater grid (VIP Rows A-B, Standard Rows C-F).
+    - Handles seat state transitions (AVAILABLE -> HOLD -> BOOKED) and hold expiry cleanups.
+    - Persists state into data.json for reliability across server restarts.
+"""
+
 import json
 import os
 import time

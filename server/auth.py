@@ -1,3 +1,12 @@
+"""
+File: server/auth.py
+Description:
+    Authentication & Security Utilities.
+    - Password hashing and verification using direct bcrypt library.
+    - JSON Web Token (JWT) encoding, decoding, and expiration handling (HS256).
+    - FastAPI HTTPBearer dependency (get_current_user) for route protection.
+"""
+
 import jwt
 import time
 import bcrypt

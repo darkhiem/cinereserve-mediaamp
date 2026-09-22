@@ -1,3 +1,11 @@
+/**
+ * File: client/src/components/AuthModal.jsx
+ * Description:
+ *   User Authentication Modal (Sign In / Register).
+ *   - Supports switching between login and registration flows.
+ *   - Includes one-click quick demo buttons (Alice / Bob) for multi-user concurrency testing.
+ */
+
 import React, { useState } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { X, Lock, Mail, User, Sparkles, AlertCircle } from 'lucide-react';

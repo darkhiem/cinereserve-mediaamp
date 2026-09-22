@@ -1,3 +1,12 @@
+/**
+ * File: client/src/components/CheckoutModal.jsx
+ * Description:
+ *   Time-Sensitive Checkout & Payment Modal.
+ *   - Implements a live 5-minute hold countdown timer with color-coded warning/danger thresholds.
+ *   - Auto-triggers cancellation if hold timer expires.
+ *   - Renders reserved seat items breakdown, total calculation, and mock payment form.
+ */
+
 import React, { useState, useEffect } from 'react';
 import { Clock, CreditCard, ShieldCheck, AlertTriangle, X, Check, Lock } from 'lucide-react';
 

@@ -1,3 +1,13 @@
+"""
+File: server/main.py
+Description:
+    FastAPI Application Entry Point & Route Handlers.
+    - Manages REST endpoints for user authentication, seat holding, cancellation, booking, and history.
+    - WebSocket endpoint (/ws) with ConnectionManager for real-time seat synchronization across clients.
+    - Background task (expired_holds_sweeper) to automatically release unpaid holds every second.
+    - CORS middleware configuration for frontend integration.
+"""
+
 import asyncio
 import json
 import uuid

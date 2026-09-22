@@ -1,3 +1,11 @@
+/**
+ * File: client/src/components/BookingHistoryModal.jsx
+ * Description:
+ *   User Booking History Dialog.
+ *   - Fetches and displays all past confirmed tickets for the authenticated user (/api/bookings).
+ *   - Allows re-opening and viewing individual digital passes.
+ */
+
 import React, { useState, useEffect } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { Ticket, X, Calendar, DollarSign, AlertCircle } from 'lucide-react';
