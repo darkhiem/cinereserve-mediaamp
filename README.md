@@ -41,6 +41,125 @@
  │  - Expired Hold Background Sweeper Task                │
  │  - Persistent JSON / File Storage (`data.json`)        │
  └────────────────────────────────────────────────────────┘
+---
+
+## 🗄️ Database & Entity Schema
+
+The application uses a persistent data store with structured JSON / relational entity schemas:
+
+### 1. `seats` Collection / Table
+Represents each seat in the theater hall with live lock state and pricing tiers.
+
+| Field | Type | Description |
+| :--- | :--- | :--- |
+| `id` | `String (PK)` | Unique seat code (e.g. `A1`, `B4`, `F10`) |
+| `row` | `String` | Row identifier (`A` through `F`) |
+| `number` | `Integer` | Seat column number (1–10) |
+| `tier` | `String` | `VIP` ($25.00) or `Standard` ($15.00) |
+| `price` | `Float` | Seat unit price |
+| `status` | `Enum` | `AVAILABLE`, `HOLD`, `BOOKED` |
+| `heldBy` | `String (FK)` | User ID currently holding the seat (Nullable) |
+| `heldByName` | `String` | Display name of the user holding the seat (Nullable) |
+| `holdExpiresAt` | `Integer (Unix ms)` | Epoch timestamp when the 5-minute hold expires (Nullable) |
+| `bookedBy` | `String (FK)` | User ID who finalized the purchase (Nullable) |
+| `bookedByName`| `String` | Name of the verified ticket holder (Nullable) |
+| `bookingRef` | `String (FK)` | Confirmed booking reference ID (e.g. `BK-9428F1`) |
+
+```json
+{
+  "id": "A1",
+  "row": "A",
+  "number": 1,
+  "tier": "VIP",
+  "price": 25.0,
+  "status": "HOLD",
+  "heldBy": "u_94bc31a2",
+  "heldByName": "Alice Parker",
+  "holdExpiresAt": 1774343100000,
+  "bookedBy": null,
+  "bookedByName": null,
+  "bookingRef": null
+}
+```
+
+---
+
+### 2. `users` Collection / Table
+Stores registered users with hashed credentials.
+
+| Field | Type | Description |
+| :--- | :--- | :--- |
+| `id` | `String (PK)` | Unique user identifier (e.g. `u_94bc31a2`) |
+| `name` | `String` | Full name of the user |
+| `email` | `String (Unique)` | User email address (case-insensitive) |
+| `password` | `String` | Salted bcrypt password hash |
+
+```json
+{
+  "id": "u_94bc31a2",
+  "name": "Alice Parker",
+  "email": "alice@example.com",
+  "password": "$2b$12$KIXe8XqL1y..."
+}
+```
+
+---
+
+### 3. `bookings` Collection / Table
+Stores completed transactions and issued digital ticket passes.
+
+| Field | Type | Description |
+| :--- | :--- | :--- |
+| `id` | `String (PK)` | Unique transaction ID (e.g. `b_1774342800123`) |
+| `bookingRef` | `String (Unique)` | Alphanumeric booking reference (e.g. `BK-7B29F4`) |
+| `userId` | `String (FK)` | ID of the purchasing user |
+| `userName` | `String` | Name of the purchasing user |
+| `seatIds` | `Array[String]` | Array of reserved seat codes (e.g. `["A1", "A2"]`) |
+| `seats` | `Array[Object]` | Detailed seat objects at time of purchase |
+| `totalPrice` | `Float` | Total transaction amount paid |
+| `paymentMethod` | `String` | Mock payment method (e.g. `Visa •••• 4242`) |
+| `status` | `Enum` | `CONFIRMED`, `CANCELLED` |
+| `createdAt` | `ISO 8601 Timestamp` | Date and time booking was confirmed |
+
+```json
+{
+  "id": "b_1774342800123",
+  "bookingRef": "BK-7B29F4",
+  "userId": "u_94bc31a2",
+  "userName": "Alice Parker",
+  "seatIds": ["A1", "A2"],
+  "seats": [
+    {"id": "A1", "row": "A", "number": 1, "tier": "VIP", "price": 25.0},
+    {"id": "A2", "row": "A", "number": 2, "tier": "VIP", "price": 25.0}
+  ],
+  "totalPrice": 50.0,
+  "paymentMethod": "Visa •••• 4242",
+  "status": "CONFIRMED",
+  "createdAt": "2026-09-22T09:00:00Z"
+}
+```
+
+---
+
+### 🔄 Seat State Lifecycle Machine
+
+```
+              ┌───────────────────────────┐
+              │         AVAILABLE         │
+              └─────────────┬─────────────┘
+                            │ User clicks "Lock & Checkout"
+                            ▼
+              ┌───────────────────────────┐
+       ┌─────►│       HOLD (5 mins)       │◄────┐
+       │      └───────┬───────────┬───────┘     │
+Timer  │              │           │             │
+Expires│   Payment    │           │ User        │
+       │   Success    │           │ Cancels     │
+       │              ▼           ▼             │
+       │      ┌──────────────┐    │             │
+       │      │    BOOKED    │    └─────────────┘
+       │      └──────────────┘
+       └──────────────┘
 ```
 
 ---
