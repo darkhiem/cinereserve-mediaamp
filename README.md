@@ -41,6 +41,8 @@
  │  - Expired Hold Background Sweeper Task                │
  │  - Persistent JSON / File Storage (`data.json`)        │
  └────────────────────────────────────────────────────────┘
+```
+
 ---
 
 ## 🗄️ Database & Entity Schema
